@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
-import { FaAngleRight } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 const headerVariants = {
   hidden: {
@@ -18,18 +19,28 @@ const headerVariants = {
 };
 
 const welcomeVariants = {
-  hidden: {
-    opacity: 0,
-    y: 50,
+  hiddenRight: {
+    x: "20%",
+    opacity: 0
+  },
+  hiddenLeft: {
+    x: "-20%",
+    opacity: 0
   },
   visible: {
+    x: '0',
     opacity: 1,
-    y: 0,
     transition: {
-      delay: 0.5,
-      duration: 0.9,
-    },
+      delay: 0.4,
+      duration: 0.7
+    }
   },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.3
+    } 
+  }
 };
 
 const buttonVariants = {
@@ -45,6 +56,9 @@ const buttonVariants = {
       duration: 0.9,
     },
   },
+  hover: {
+    scale: 1.2,
+  },
 };
 
 const messages = [
@@ -56,9 +70,21 @@ const messages = [
   "We're here to help you find one tailored to your needs",
 ];
 
-function App() {
-  const [completion, setCompletion] = useState(0);
+type direction = "left" | "right";
 
+function App() {
+  const [messagesIndex, setMessagesIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<direction>('left');
+
+  const handleNext = () => {
+    setSlideDirection('right');
+    setMessagesIndex((prevIndex) => prevIndex + 1);
+  }
+  const handlePrevious = () => {
+    setSlideDirection('left');
+    setMessagesIndex((prevIndex) => prevIndex - 1);
+  }
+  
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <motion.div
@@ -79,16 +105,16 @@ function App() {
           >
             Welcome to Any Help
           </motion.h1>
-            <div className="w-[65%] min-h-[75px] mt-10">
-              <motion.p
-                className="text-white text-center text-xl font-lexend"
-                variants={welcomeVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {messages[completion]}
-              </motion.p>
-            </div>
+          <div className="w-[65%] min-h-[75px] mt-10">
+            <motion.p
+              className="text-white text-center text-xl font-lexend"
+              variants={welcomeVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {messages[messagesIndex]}
+            </motion.p>
+          </div>
         </div>
         <motion.button
           className="bg-white rounded-full p-1 hover:bg-white/70"
@@ -99,7 +125,7 @@ function App() {
             scale: 1.2,
           }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => setCompletion((prev) => prev + 1)}
+          onClick={handleNext}
         >
           <FaAngleRight className="text-green-500" size={30} />
         </motion.button>
@@ -116,29 +142,48 @@ function App() {
             Welcome to Any Help
           </motion.h1>
           <div className="w-[75%] min-h-[100px] mt-5">
-            <motion.p
-              className="text-white text-center text-lg font-lexend"
-              variants={welcomeVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {messages[completion]}
-            </motion.p>
+            <AnimatePresence>
+              <motion.p
+                key={messagesIndex}
+                className="text-white text-center text-lg font-lexend"
+                variants={welcomeVariants}
+                initial={
+                  slideDirection === "right" ? "hiddenRight" : "hiddenLeft"
+                }
+                animate="visible"
+                exit="exit"
+              >
+                {messages[messagesIndex]}
+              </motion.p>
+            </AnimatePresence>
           </div>
         </div>
-        <motion.button
-          className="bg-white rounded-full p-1 hover:bg-white/70"
-          variants={buttonVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover={{
-            scale: 1.2,
-          }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setCompletion((prev) => prev + 1)}
-        >
-          <FaAngleRight className="text-green-500" size={30} />
-        </motion.button>
+        <div className="w-[25%] flex flex-row items-center justify-between">
+          <motion.button
+            className="bg-white rounded-full p-1 hover:bg-white/80 disabled:bg-white/40"
+            variants={buttonVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover={messagesIndex !== 0 ? "hover" : ""}
+            whileTap={{ scale: 0.9 }}
+            onClick={handlePrevious}
+            disabled={messagesIndex === 0}
+          >
+            <FaAngleLeft className="text-green-500" size={30} />
+          </motion.button>
+          <motion.button
+            className="bg-white rounded-full p-1 hover:bg-white/80 disabled:bg-white/40"
+            variants={buttonVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover={messagesIndex !== messages.length - 1 ? "hover" : ""}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleNext}
+            disabled={messagesIndex === messages.length - 1}
+          >
+            <FaAngleRight className="text-green-500" size={30} />
+          </motion.button>
+        </div>
       </div>
     </div>
   );
