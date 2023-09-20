@@ -1,11 +1,13 @@
 
 import Header from "./components/Header"
+import MainContent from "./components/MainContent";
 
 function Main() {
   return (
-    <div>
+    <>
       <Header />
-    </div>
+      <MainContent />
+    </>
   );
 }
 

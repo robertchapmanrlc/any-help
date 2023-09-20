@@ -11,7 +11,7 @@ const headerVariants = {
     transition: {
       delay: 0.2,
       duration: 0.9,
-      delayChildren: 0.5,
+      delayChildren: 0.8,
       staggerChildren: 0.2,
     },
   },
