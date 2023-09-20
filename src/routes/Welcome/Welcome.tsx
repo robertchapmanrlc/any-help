@@ -106,7 +106,7 @@ function Welcome() {
           >
             Welcome to Any Help
           </motion.h1>
-          <div className="w-[65%] min-h-[90px] mt-8">
+          <div className="w-[65%] min-h-[120px] mt-8">
             <AnimatePresence>
               <motion.p
                 key={messagesIndex}
