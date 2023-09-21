@@ -29,7 +29,7 @@ function Map() {
 
   return (
     <motion.div
-      className="w-full md:w-[65%] md:h-full flex items-center justify-center"
+      className="w-full md:w-[65%] h-full flex items-center justify-center"
       variants={mapVariants}
       initial="hidden"
       animate="visible"

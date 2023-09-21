@@ -1,5 +1,7 @@
 import { data, detail } from "../../../../template.ts";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 const listVariants = {
   hidden: {
@@ -36,26 +38,43 @@ const facilityVariants = {
 };
 
 function FacilityList() {
-  console.log(data.results);
+  const [open, setOpen] = useState(true);
 
   const facilities = data.results;
   const details = detail.result;
 
   return (
     <motion.div
-      className="w-full md:w-[35%] overflow-y-auto flex flex-col items-center align-top gap-5"
+      className={`w-full md:w-[35%] md:h-full h-[${
+        open ? `50%` : `5%`
+      }] flex flex-col items-end`}
       variants={listVariants}
       initial="hidden"
       animate="visible"
     >
-      {facilities.map((facility) => (
-        <motion.div className="flex flex-col" variants={facilityVariants}>
-          <p key={facility.place_id} className="text-center font-lexend">
-            {facility.name}
-          </p>
-          <p className="text-center font-lexend">{details.website}</p>
-        </motion.div>
-      ))}
+      <div
+        className={`md:hidden w-full h-[${
+          open ? `10%` : `100%`
+        }] flex flex-row justify-end`}
+      >
+        <button onClick={() => setOpen(!open)} className="mr-4">
+          {open ? <FaAngleDown size={20} /> : <FaAngleUp size={20} />}
+        </button>
+      </div>
+      <div
+        className={`w-full md:flex ${
+          open ? `h-[90%]` : `hidden`
+        } md:h-full flex flex-col items-center align-top overflow-y-auto gap-5`}
+      >
+        {facilities.map((facility) => (
+          <motion.div className="flex flex-col" variants={facilityVariants}>
+            <p key={facility.place_id} className="text-center font-lexend">
+              {facility.name}
+            </p>
+            <p className="text-center font-lexend">{details.website}</p>
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 }

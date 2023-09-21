@@ -4,7 +4,7 @@ import Map from "./Map";
 
 function MainContent() {
   return (
-    <div className="w-full h-[calc(100%-8rem)] md:h-[calc(100%-4rem)] flex flex-col-reverse md:flex-row border-8 justify-between items-center">
+    <div className="w-full h-[calc(100%-8rem)] md:h-[calc(100%-7.5rem)] md:mt-14 flex flex-col-reverse md:flex-row justify-between items-center">
       <FacilityList />
       <Map />
     </div>

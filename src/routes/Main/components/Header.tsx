@@ -48,7 +48,7 @@ const searchVariants = {
 function Header() {
   return (
     <motion.div
-      className="w-full h-32 md:h-16 flex flex-col md:flex-row items-center justify-between bg-green-500 drop-shadow-[0_30px_15px_rgba(22,101,52,0.15)]"
+      className="w-full h-32 md:h-16 flex flex-col md:flex-row items-center justify-between bg-green-500 md:drop-shadow-[0_30px_15px_rgba(22,101,52,0.15)]"
       variants={headerVariants}
       initial="hidden"
       animate="visible"
