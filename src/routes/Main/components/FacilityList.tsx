@@ -43,7 +43,7 @@ function FacilityList() {
 
   return (
     <motion.div
-      className="w-[35%] flex flex-col items-center align-top gap-5 mt-10"
+      className="w-full md:w-[35%] overflow-y-auto flex flex-col items-center align-top gap-5"
       variants={listVariants}
       initial="hidden"
       animate="visible"

@@ -29,14 +29,14 @@ function Map() {
 
   return (
     <motion.div
-      className="w-[65%] flex items-center justify-center"
+      className="w-full md:w-[65%] md:h-full flex items-center justify-center"
       variants={mapVariants}
       initial="hidden"
       animate="visible"
     >
       {isLoaded ? (
         <GoogleMap
-          mapContainerClassName="w-[calc(100%-5rem)] h-[calc(100%-5rem)] rounded-xl"
+          mapContainerClassName="w-[90%] h-[90%] rounded-xl"
           center={center}
           zoom={10}
         ></GoogleMap>
