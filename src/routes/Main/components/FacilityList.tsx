@@ -47,17 +47,28 @@ function FacilityList() {
   return (
     <>
       <motion.div
-        className="hidden md:flex w-[35%] h-full flex-col justify-start items-center gap-5 overflow-y-auto"
+        className="hidden md:flex w-[35%] h-full flex-col justify-start items-center gap-8 overflow-y-auto"
         variants={listVariants}
         initial="hidden"
         animate="visible"
       >
         {facilities.map((facility) => (
-          <motion.div className="w-full" variants={facilityVariants}>
+          <motion.div
+            className="w-full flex justify-center items-center"
+            variants={facilityVariants}
+          >
             <FacilityCard
               key={facility.place_id}
               name={facility.name}
               website={details.website}
+              address={details.formatted_address}
+              rating={facility.rating}
+              phone_number={details.formatted_phone_number}
+              maps_url={details.url}
+              open={facility.opening_hours?.open_now!}
+              open_hours={details.current_opening_hours}
+              wheelchair_accessible={details.wheelchair_accessible_entrance}
+              img="../../../../template.jpeg"
             />
           </motion.div>
         ))}
@@ -120,7 +131,15 @@ function FacilityList() {
                   <FacilityCard
                     key={facility.place_id}
                     name={facility.name}
-                    website={detail.result.website}
+                    website={details.website}
+                    address={details.formatted_address}
+                    rating={facility.rating}
+                    phone_number={details.formatted_phone_number}
+                    maps_url={details.url}
+                    open={facility.opening_hours?.open_now!}
+                    open_hours={details.current_opening_hours}
+                    wheelchair_accessible={details.wheelchair_accessible_entrance}
+                    img=""
                   />
                 </motion.div>
               ))}

@@ -525,9 +525,39 @@ export const data = {
 export const detail = {
     "html_attributions": [],
     "result": {
-        "formatted_phone_number": "(773) 702-1000",
-        "url": "https://maps.google.com/?cid=13538121480361194222",
-        "website": "https://psychiatry.uchicago.edu/"
+        "current_opening_hours": {
+            "open_now": true,
+            "periods": [
+                {
+                    "close": {
+                        "date": "2023-09-28",
+                        "day": 4,
+                        "time": "2359",
+                        "truncated": true
+                    },
+                    "open": {
+                        "date": "2023-09-22",
+                        "day": 5,
+                        "time": "0000",
+                        "truncated": true
+                    }
+                }
+            ],
+            "weekday_text": [
+                "Monday: Open 24 hours",
+                "Tuesday: Open 24 hours",
+                "Wednesday: Open 24 hours",
+                "Thursday: Open 24 hours",
+                "Friday: Open 24 hours",
+                "Saturday: Open 24 hours",
+                "Sunday: Open 24 hours"
+            ]
+        },
+        "formatted_address": "1500 S Fairfield Ave, Chicago, IL 60608, USA",
+        "formatted_phone_number": "(773) 257-6671",
+        "url": "https://maps.google.com/?cid=12923305060081462094",
+        "website": "https://www.sinaichicago.org/en/patients-visitors/services/behavioral-health/",
+        "wheelchair_accessible_entrance": true
     },
     "status": "OK"
 }
