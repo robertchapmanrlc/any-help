@@ -2,6 +2,7 @@ import { data, detail } from "../../../../template.ts";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+import FacilityCard from "./FacilityCard.tsx";
 
 const listVariants = {
   hidden: {
@@ -52,11 +53,12 @@ function FacilityList() {
         animate="visible"
       >
         {facilities.map((facility) => (
-          <motion.div className="flex flex-col" variants={facilityVariants}>
-            <p key={facility.place_id} className="text-center font-lexend">
-              {facility.name}
-            </p>
-            <p className="text-center font-lexend">{details.website}</p>
+          <motion.div className="w-full" variants={facilityVariants}>
+            <FacilityCard
+              key={facility.place_id}
+              name={facility.name}
+              website={details.website}
+            />
           </motion.div>
         ))}
       </motion.div>
@@ -91,7 +93,7 @@ function FacilityList() {
                     duration: 0.4,
                   },
                   opacity: {
-                    duration: 0.30,
+                    duration: 0.3,
                     delay: 0.15,
                   },
                 },
@@ -112,16 +114,14 @@ function FacilityList() {
             >
               {facilities.map((facility) => (
                 <motion.div
-                  className="flex flex-col"
+                  className="w-full flex flex-col mt-5"
                   variants={facilityVariants}
                 >
-                  <p
+                  <FacilityCard
                     key={facility.place_id}
-                    className="text-center font-lexend"
-                  >
-                    {facility.name}
-                  </p>
-                  <p className="text-center font-lexend">{details.website}</p>
+                    name={facility.name}
+                    website={detail.result.website}
+                  />
                 </motion.div>
               ))}
             </motion.div>
