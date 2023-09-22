@@ -62,8 +62,11 @@ function FacilityList() {
       </motion.div>
 
       <div className="md:w-0 w-full">
-        <div
-          className="md:hidden flex h-10 w-full flex-row justify-center gap-1 items-center bg-green-500"
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="md:hidden flex h-10 w-full flex-row justify-center gap-1 items-center bg-green-500 cursor-pointer"
           onClick={() => setOpen(!open)}
         >
           <h1 className="text-center text-white font-lexend">Show Centers</h1>
@@ -72,18 +75,58 @@ function FacilityList() {
           ) : (
             <FaAngleDown className="text-white" size={20} />
           )}
-        </div>
-        <div className="md:hidden h-[10rem] flex flex-col justify-start items-center gap-5 overflow-y-auto">
-          {open &&
-            facilities.map((facility) => (
-              <motion.div className="flex flex-col" variants={facilityVariants}>
-                <p key={facility.place_id} className="text-center font-lexend">
-                  {facility.name}
-                </p>
-                <p className="text-center font-lexend">{details.website}</p>
-              </motion.div>
-            ))}
-        </div>
+        </motion.div>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0,
+              }}
+              animate={{
+                height: "10rem",
+                opacity: 1,
+                transition: {
+                  height: {
+                    duration: 0.4,
+                  },
+                  opacity: {
+                    duration: 0.30,
+                    delay: 0.15,
+                  },
+                },
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+                transition: {
+                  height: {
+                    duration: 0.4,
+                  },
+                  opacity: {
+                    duration: 0.25,
+                  },
+                },
+              }}
+              className="w-full flex flex-col justify-start items-center gap-5 overflow-y-auto"
+            >
+              {facilities.map((facility) => (
+                <motion.div
+                  className="flex flex-col"
+                  variants={facilityVariants}
+                >
+                  <p
+                    key={facility.place_id}
+                    className="text-center font-lexend"
+                  >
+                    {facility.name}
+                  </p>
+                  <p className="text-center font-lexend">{details.website}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
