@@ -1,5 +1,5 @@
 import { data, detail } from "../../../../template.ts";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
@@ -38,33 +38,18 @@ const facilityVariants = {
 };
 
 function FacilityList() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const facilities = data.results;
   const details = detail.result;
 
   return (
-    <motion.div
-      className={`w-full md:w-[35%] md:h-full h-[${
-        open ? `50%` : `5%`
-      }] flex flex-col items-end`}
-      variants={listVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <div
-        className={`md:hidden w-full h-[${
-          open ? `10%` : `100%`
-        }] flex flex-row justify-end`}
-      >
-        <button onClick={() => setOpen(!open)} className="mr-4">
-          {open ? <FaAngleDown size={20} /> : <FaAngleUp size={20} />}
-        </button>
-      </div>
-      <div
-        className={`w-full md:flex ${
-          open ? `h-[90%]` : `hidden`
-        } md:h-full flex flex-col items-center align-top overflow-y-auto gap-5`}
+    <>
+      <motion.div
+        className="hidden md:flex w-[35%] h-full flex-col justify-start items-center gap-5 overflow-y-auto"
+        variants={listVariants}
+        initial="hidden"
+        animate="visible"
       >
         {facilities.map((facility) => (
           <motion.div className="flex flex-col" variants={facilityVariants}>
@@ -74,8 +59,33 @@ function FacilityList() {
             <p className="text-center font-lexend">{details.website}</p>
           </motion.div>
         ))}
+      </motion.div>
+
+      <div className="md:w-0 w-full">
+        <div
+          className="md:hidden flex h-10 w-full flex-row justify-center gap-1 items-center bg-green-500"
+          onClick={() => setOpen(!open)}
+        >
+          <h1 className="text-center text-white font-lexend">Show Centers</h1>
+          {open ? (
+            <FaAngleUp className="text-white" size={20} />
+          ) : (
+            <FaAngleDown className="text-white" size={20} />
+          )}
+        </div>
+        <div className="md:hidden h-[10rem] flex flex-col justify-start items-center gap-5 overflow-y-auto">
+          {open &&
+            facilities.map((facility) => (
+              <motion.div className="flex flex-col" variants={facilityVariants}>
+                <p key={facility.place_id} className="text-center font-lexend">
+                  {facility.name}
+                </p>
+                <p className="text-center font-lexend">{details.website}</p>
+              </motion.div>
+            ))}
+        </div>
       </div>
-    </motion.div>
+    </>
   );
 }
 
