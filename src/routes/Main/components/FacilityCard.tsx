@@ -45,7 +45,7 @@ function FacilityCard({ name, website, rating, address, phone_number, maps_url, 
   }
 
   return (
-    <div className="w-[90%] h-auto bg-white rounded-[24px] flex flex-col justify-center items-center p-4 md:drop-shadow-[0_15px_10px_rgba(25,25,25,0.15)]">
+    <div className="w-full md:w-[90%] h-auto bg-white md:rounded-[24px] flex flex-col justify-center items-center p-4 md:drop-shadow-[0_15px_10px_rgba(25,25,25,0.15)]">
       <img
         src={img}
         alt="Picture of the facility"

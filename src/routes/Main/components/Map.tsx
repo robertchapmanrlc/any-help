@@ -43,6 +43,7 @@ function Map() {
       ) : (
         <p>Loading...</p>
       )}
+      <p>Map goes here</p>
     </motion.div>
   );
 }

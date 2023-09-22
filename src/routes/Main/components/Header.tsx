@@ -48,19 +48,19 @@ const searchVariants = {
 function Header() {
   return (
     <motion.div
-      className="w-full h-32 md:h-16 flex flex-col md:flex-row items-center justify-between bg-green-500 md:drop-shadow-[0_30px_15px_rgba(22,101,52,0.15)]"
+      className="w-full h-24 md:h-16 flex flex-col md:flex-row items-center justify-between bg-green-500 md:drop-shadow-[0_30px_15px_rgba(22,101,52,0.15)]"
       variants={headerVariants}
       initial="hidden"
       animate="visible"
     >
       <motion.h1
-        className="text-white text-2xl font-lexend md:ml-4 md:pt-0 pt-4"
+        className="text-white text-2xl font-lexend md:ml-4 md:pt-0 pt-1"
         variants={titleVariants}
       >
         Find Help Nearby
       </motion.h1>
       <motion.div
-        className="w-full md:w-[450px] md:mr-4 md:pb-0 pb-3 flex flex-col md:flex-row justify-between items-center"
+        className="w-full md:w-[450px] md:mr-4 md:pb-0 flex flex-col md:flex-row justify-between items-center"
         variants={searchVariants}
       >
         <h3 className="text-white text-lg font-lexend">

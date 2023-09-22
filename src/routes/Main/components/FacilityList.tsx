@@ -97,7 +97,7 @@ function FacilityList() {
                 opacity: 0,
               }}
               animate={{
-                height: "10rem",
+                height: "15rem",
                 opacity: 1,
                 transition: {
                   height: {
@@ -125,7 +125,7 @@ function FacilityList() {
             >
               {facilities.map((facility) => (
                 <motion.div
-                  className="w-full flex flex-col mt-5"
+                  className="w-full flex flex-col items-center"
                   variants={facilityVariants}
                 >
                   <FacilityCard
@@ -138,8 +138,10 @@ function FacilityList() {
                     maps_url={details.url}
                     open={facility.opening_hours?.open_now!}
                     open_hours={details.current_opening_hours}
-                    wheelchair_accessible={details.wheelchair_accessible_entrance}
-                    img=""
+                    wheelchair_accessible={
+                      details.wheelchair_accessible_entrance
+                    }
+                    img="../../../../template.jpeg"
                   />
                 </motion.div>
               ))}
