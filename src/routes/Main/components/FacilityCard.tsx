@@ -40,7 +40,9 @@ function FacilityCard({ facility }: FacilityCardProps) {
           {facility.name}
         </h1>
         <div className="flex flex-row items-center gap-1 -mt-3">
-          <p className="text-black/50 text-md font-lexend mt-2">{facility.rating}</p>
+          <p className="text-black/50 text-md font-lexend mt-2">
+            {facility.rating}
+          </p>
           <Rating
             className="mt-2"
             defaultValue={facility.rating}
@@ -55,10 +57,16 @@ function FacilityCard({ facility }: FacilityCardProps) {
           ) : (
             <p className="text-red-500 font-lexend">Closed</p>
           )}
-          <p className="text-black/50">{open_hours_message(facility.open_now!)}</p>
+          <p className="text-black/50">
+            {open_hours_message(facility.open_now!)}
+          </p>
         </div>
-        <p className="text-black text-md font-lexend mt-2">{facility.formatted_address}</p>
-        <p className="text-black text-md font-lexend">{facility.formatted_phone_number}</p>
+        <p className="text-black text-md font-lexend mt-2">
+          {facility.formatted_address}
+        </p>
+        <p className="text-black text-md font-lexend">
+          {facility.formatted_phone_number}
+        </p>
 
         <p className="text-black text-md font-lexend">
           Wheelchair Accessible:{" "}
@@ -69,10 +77,10 @@ function FacilityCard({ facility }: FacilityCardProps) {
           )}
         </p>
         <div className="w-full flex flex-row justify-around items-center mt-2">
-          <a href={facility.website}>
+          <a href={facility.website} target="_blank">
             <CgWebsite size={30} />
           </a>
-          <a href={facility.url}>
+          <a href={facility.url} target="_blank">
             <LiaDirectionsSolid size={30} />
           </a>
         </div>

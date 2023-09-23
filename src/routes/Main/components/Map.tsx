@@ -73,14 +73,21 @@ function Map ({ places }: MapProps) {
           ))}
           {selectedPlace && (
             <InfoWindowF
-              position={{ lat: selectedPlace.location.lat, lng: selectedPlace.location.lng }}
+              position={{
+                lat: selectedPlace.location.lat,
+                lng: selectedPlace.location.lng,
+              }}
               zIndex={1}
               options={{ pixelOffset: { width: 0, height: -40 } }}
               onCloseClick={() => setSelectedPlace(null)}
             >
               <div className="flex flex-col justify-center items-center gap-1">
-                <p className="text-black text-center font-lexend">{selectedPlace.name}</p>
-                <a href={selectedPlace.url} className="ml-2"><LiaDirectionsSolid size={20}/></a>
+                <p className="text-black text-center font-lexend">
+                  {selectedPlace.name}
+                </p>
+                <a href={selectedPlace.url} target="_blank" className="ml-2">
+                  <LiaDirectionsSolid size={20} />
+                </a>
               </div>
             </InfoWindowF>
           )}
