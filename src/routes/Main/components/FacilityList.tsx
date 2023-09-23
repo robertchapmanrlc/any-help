@@ -4,7 +4,6 @@ import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 import FacilityCard from "./FacilityCard.tsx";
 import Map from "./Map.tsx";
-import { data, detail } from "../../../../template.ts";
 import { Place } from "../../../types/Place.ts";
 
 const listVariants = {
@@ -41,37 +40,12 @@ const facilityVariants = {
   },
 };
 
-function FacilityList() {
+interface FacilityListProps {
+  places: Place[];
+}
+
+function FacilityList({ places } : FacilityListProps) {
   const [open, setOpen] = useState(false);
-
-  const facilities = data.results;
-  const details = detail.result;
-
-  const results = data.results;
-  const places: Place[] = [];
-  results.forEach((result) => {
-    places.push({
-      location: {
-        lat: result.geometry.location.lat,
-        lng: result.geometry.location.lng,
-      },
-      name: result.name,
-      open_now: result.opening_hours?.open_now,
-      place_id: result.place_id,
-      rating: result.rating,
-      formatted_address: detail.result.formatted_address,
-      formatted_phone_number: detail.result.formatted_phone_number,
-      url: detail.result.url,
-      website: detail.result.website,
-      wheelchair_accessible_entrance:
-        detail.result.wheelchair_accessible_entrance,
-      open_time: detail.result.current_opening_hours.periods[0].open.time,
-      close_time: detail.result.current_opening_hours.periods[0].close.time,
-      img:"../../../../template.jpeg",
-    });
-  });
-
-  console.log(places);
 
   return (
     <>
@@ -158,7 +132,6 @@ function FacilityList() {
           )}
         </AnimatePresence>
       </div>
-      <Map places={places}/>
     </>
   );
 }
