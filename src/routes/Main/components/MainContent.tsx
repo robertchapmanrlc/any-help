@@ -2,45 +2,56 @@
 import { Place } from "../../../types/Place.ts";
 import FacilityList from "./FacilityList";
 import Map from "./Map.tsx";
-import { data, detail } from "../../../../template.ts";
+import { facilities as places } from "../../../../template.ts";
+import { useEffect, useState } from "react";
+import { getFacilities } from '../../../api/fetchFacilities.ts';
 
+type Coordinates = {
+  lat: number,
+  lng: number
+}
 
 function MainContent() {
 
+  const [coordinates, setCoordinates] = useState<Coordinates | undefined>(undefined);
+  
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const initialCoords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      setCoordinates(initialCoords);
+    });
+  } ,[]);
 
-  const facilities = data.results;
-  const details = detail.result;
+  // useEffect(() => {
+  //   if(coordinates !== undefined)
+  //     getFacilities(coordinates);
+  // },[coordinates]);
 
-  const results = data.results;
-  const places: Place[] = [];
-  results.forEach((result) => {
-    places.push({
-      location: {
-        lat: result.geometry.location.lat,
-        lng: result.geometry.location.lng,
+  const facilities: Place[] = [];
+  const unfiltered_results = places.local_results;
+  unfiltered_results.forEach((result) => {
+    facilities.push({
+      id: result.position,
+      title: result.title,
+      coords: {
+        lat: result.gps_coordinates.latitude,
+        lng: result.gps_coordinates.longitude,
       },
-      name: result.name,
-      open_now: result.opening_hours?.open_now,
-      place_id: result.place_id,
-      rating: result.rating,
-      formatted_address: detail.result.formatted_address,
-      formatted_phone_number: detail.result.formatted_phone_number,
-      url: detail.result.url,
-      website: detail.result.website,
-      wheelchair_accessible_entrance:
-        detail.result.wheelchair_accessible_entrance,
-      open_time: detail.result.current_opening_hours.periods[0].open.time,
-      close_time: detail.result.current_opening_hours.periods[0].close.time,
-      img: "../../../../template.jpeg",
+      address: result.address,
+      phone_number: result.phone,
+      website: result.website,
+      open_state: result.open_state,
+      img_url: result.thumbnail
     });
   });
 
-  console.log(places);
-
   return (
     <div className="w-full h-[calc(100%-6rem)] md:h-[calc(100%-7.5rem)] md:mt-14 flex md:flex-row flex-col-reverse justify-end md:justify-start items-center">
-      <FacilityList places={places} />
-      <Map places={places} />
+      <FacilityList facilities={facilities} />
+      <Map facilities={facilities} />
     </div>
   );
 }

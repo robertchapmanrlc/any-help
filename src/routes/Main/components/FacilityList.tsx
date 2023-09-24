@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 import FacilityCard from "./FacilityCard.tsx";
-import Map from "./Map.tsx";
 import { Place } from "../../../types/Place.ts";
 
 const listVariants = {
@@ -41,10 +40,10 @@ const facilityVariants = {
 };
 
 interface FacilityListProps {
-  places: Place[];
+  facilities: Place[];
 }
 
-function FacilityList({ places } : FacilityListProps) {
+function FacilityList({ facilities } : FacilityListProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -55,15 +54,13 @@ function FacilityList({ places } : FacilityListProps) {
         initial="hidden"
         animate="visible"
       >
-        {places.map((facility, i) => (
+        {facilities.map((facility: Place) => (
           <motion.div
+            key={facility.id}
             className="w-full flex justify-center items-center"
             variants={facilityVariants}
           >
-            <FacilityCard
-              key={i}
-              facility={facility}
-            />
+            <FacilityCard facility={facility} />
           </motion.div>
         ))}
       </motion.div>
@@ -117,15 +114,13 @@ function FacilityList({ places } : FacilityListProps) {
               }}
               className="w-full flex flex-col justify-start items-center gap-5 overflow-y-auto"
             >
-              {places.map((facility, i) => (
+              {facilities.map((facility: Place) => (
                 <motion.div
+                  key={facility.id}
                   className="w-full flex flex-col items-center"
                   variants={facilityVariants}
                 >
-                  <FacilityCard
-                    key={i}
-                    facility={facility}
-                  />
+                  <FacilityCard facility={facility} />
                 </motion.div>
               ))}
             </motion.div>

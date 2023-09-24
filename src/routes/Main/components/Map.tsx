@@ -7,7 +7,6 @@ import {
 } from "@react-google-maps/api";
 import { LiaDirectionsSolid } from "react-icons/lia";
 
-
 import { useState } from "react";
 import { Place } from "../../../types/Place";
 
@@ -32,10 +31,10 @@ const mapVariants = {
 };
 
 interface MapProps {
-  places: Place[];
+  facilities: Place[];
 }
 
-function Map ({ places }: MapProps) {
+function Map ({ facilities }: MapProps) {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
   const { isLoaded } = useJsApiLoader({
@@ -56,26 +55,26 @@ function Map ({ places }: MapProps) {
           center={center}
           zoom={10}
         >
-          {places.map((place, i) => (
+          {facilities.map((facility, i) => (
             <MarkerF
               key={i}
               position={{
-                lat: place.location.lat,
-                lng: place.location.lng,
+                lat: facility.coords.lat,
+                lng: facility.coords.lng,
               }}
               icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
               onMouseOver={() => {
-                place === selectedPlace
+                facility === selectedPlace
                   ? setSelectedPlace(null)
-                  : setSelectedPlace(place);
+                  : setSelectedPlace(facility);
               }}
             />
           ))}
           {selectedPlace && (
             <InfoWindowF
               position={{
-                lat: selectedPlace.location.lat,
-                lng: selectedPlace.location.lng,
+                lat: selectedPlace.coords.lat,
+                lng: selectedPlace.coords.lng,
               }}
               zIndex={1}
               options={{ pixelOffset: { width: 0, height: -40 } }}
@@ -83,11 +82,8 @@ function Map ({ places }: MapProps) {
             >
               <div className="flex flex-col justify-center items-center gap-1">
                 <p className="text-black text-center font-lexend">
-                  {selectedPlace.name}
+                  {selectedPlace.title}
                 </p>
-                <a href={selectedPlace.url} target="_blank" className="ml-2">
-                  <LiaDirectionsSolid size={20} />
-                </a>
               </div>
             </InfoWindowF>
           )}

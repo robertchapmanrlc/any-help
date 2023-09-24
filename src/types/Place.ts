@@ -1,19 +1,14 @@
 
 export type Place = {
-  name: string;
-  location: {
+  id: number,
+  title: string,
+  coords: {
     lat: number,
     lng: number
   },
-  open_now?: boolean,
-  place_id: string,
-  rating: number,
-  formatted_address: string,
-  formatted_phone_number: string,
-  url: string,
-  website: string,
-  wheelchair_accessible_entrance: boolean,
-  open_time: string,
-  close_time: string,
-  img: string
+  address?: string,
+  phone_number?: string,
+  website?: string,
+  open_state?: string,
+  img_url?: string
 };
